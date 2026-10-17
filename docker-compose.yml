@@ -1,0 +1,18 @@
+services:
+  hsm:
+    build: .
+    image: hsm-service:local
+    container_name: hsm-service
+    environment:
+      SOFTHSM2_TOKEN_LABEL: "mytoken"
+      SOFTHSM2_PIN: "1234"
+      SOFTHSM2_SO_PIN: "12345678"
+      PORT: "8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - softhsm-tokens:/home/hsm/tokens
+    restart: unless-stopped
+
+volumes:
+  softhsm-tokens:
